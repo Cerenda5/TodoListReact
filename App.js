@@ -16,25 +16,48 @@ export default function App() {
         <SafeAreaView style={{flex: 1}}>
             {/* Header */}
             <HeaderApp/>
-            <ScrollView style={styles.scrollContainer}>
-                <Tile
-                    imageSrc={require('./assets/background_list.jpeg')}
-                    title="3 todo list"
-                    featured
-                    imageContainerStyle={{width: 300, height: 150, borderRadius: 20}}
-                    containerStyle={{alignItems: 'center', marginBottom: 10, height: 160}}
-                >
-                </Tile>
-                <View>
-                    <FlatList
+                <FlatList
+                    LisHeaderComponent={
+                        <Tile
+                        imageSrc={require('./assets/background_list.jpeg')}
+                        title="3 todo list"
+                        featured
+                        imageContainerStyle={{width: 300, height: 150, borderRadius: 20}}
+                        containerStyle={{alignItems: 'center', marginBottom: 10, height: 160}}
+                        />
+                    }
                         data={todo}
                         renderItem={({ item }) => (
                             <CardList item={item} />
                         )}
-                    />
-                </View>
-            </ScrollView>
+                />
         </SafeAreaView>
 
     )
+
+    // return (
+    //     <SafeAreaView style={{flex: 1}}>
+    //         {/* Header */}
+    //         <HeaderApp/>
+    //         <ScrollView style={styles.scrollContainer}>
+    //             <Tile
+    //                 imageSrc={require('./assets/background_list.jpeg')}
+    //                 title="3 todo list"
+    //                 featured
+    //                 imageContainerStyle={{width: 300, height: 150, borderRadius: 20}}
+    //                 containerStyle={{alignItems: 'center', marginBottom: 10, height: 160}}
+    //             >
+    //             </Tile>
+    //             <View>
+    //                 <FlatList
+    //                     data={todo}
+    //                     renderItem={({ item }) => (
+    //                         <CardList item={item} />
+    //                     )}
+    //                 />
+    //             </View>
+    //         </ScrollView>
+    //     </SafeAreaView>
+
+    // )
 }
