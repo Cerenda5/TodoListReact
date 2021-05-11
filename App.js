@@ -25,25 +25,37 @@ export default function App() {
         });
 
     }, []);
-
-    return (
-        <SafeAreaView style={{flex: 1}}>
-            {/* Header */}
-            <HeaderApp/>
-                <FlatList
-                    LisHeaderComponent={
-                        <Tile
-                        imageSrc={require('./assets/background_list.jpeg')}
-                        title="3 todo list"
-                        featured
-                        imageContainerStyle={{width: 300, height: 150, borderRadius: 20}}
-                        containerStyle={{alignItems: 'center', marginBottom: 10, height: 160}}
-                        />
-                    }
-                    data={lists}
-                />
-        </SafeAreaView>
-
-    )
+    if(loading) {
+        return(
+            <View>
+                <ActivityIndicator></ActivityIndicator>
+            </View>
+        )
+    } else {
+        return (
+            <SafeAreaView style={{flex: 1}}>
+                {/* Header */}
+                <HeaderApp/>
+                    <FlatList
+                        ListHeaderComponent={
+                            <Tile
+                            imageSrc={require('./assets/background_list.jpeg')}
+                            title="Todo list"
+                            featured
+                            imageContainerStyle={{width: 300, height: 150, borderRadius: 20}}
+                            containerStyle={{alignItems: 'center', marginBottom: 10, height: 160}}
+                            />
+                        }
+                        data={lists}
+                        renderItem={(list ) => (
+                        <CardList item={list}/>
+                        )
+                    
+                }
+                    />
+            </SafeAreaView>
+    
+        )
+    }
 }
    
