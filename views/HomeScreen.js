@@ -8,7 +8,7 @@ import CardList from "../components/cardList";
 import Fire from '../Fire';
 import TodoListForm from '../components/TodoListForm';
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
     const [lists, setLists] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -41,11 +41,11 @@ export default function HomeScreen() {
                 <FlatList
                     data={lists}
                     renderItem={(list ) => (
-                        <TouchableOpacity>
-                            <CardList item={list}></CardList>
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate('TodoScreen', list)}>
+                            <Text style={cardStyles.item}>{list.item.name}</Text>
                         </TouchableOpacity>
                     )
-
                     }
                 />
             </SafeAreaView>

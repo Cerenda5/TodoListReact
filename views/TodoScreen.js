@@ -1,8 +1,12 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 
-export default function TodoScreen() {
+export default function TodoScreen({route, navigation}) {
+    const list = route.params
+
     return(
-    <Text>Delphine va dormir</Text>
+        <View>
+            <Text>{list.item.name}</Text>
+        </View>
     )
 }

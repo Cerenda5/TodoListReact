@@ -20,6 +20,15 @@ export const cardStyles = StyleSheet.create({
     },
 })
 
+export const splashStyles = StyleSheet.create({
+    container: {
+        flex:1,
+        backgroundColor: '#0E3F40',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+})
+
 export const formStyles = StyleSheet.create({
     container: {
         justifyContent:'center',

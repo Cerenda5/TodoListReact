@@ -1,8 +1,20 @@
-import React from 'react';
-import { Text } from 'react-native'
+import React, {useEffect} from 'react';
+import { Image, View } from 'react-native'
+import {styles, splashStyles} from "../assets/Styles"
 
-export default function SplashScreen() {
+export default function SplashScreen({navigation}) {
+
+    useEffect(() => {
+        setTimeout(() => {
+            navigation.navigate('HomeScreen')
+        }, 2000);
+    }, [])
+
     return (
-    <Text>Ici</Text>
+        <View style={splashStyles.container}>
+            <Image
+                source={require('../assets/logo.png')}
+            />
+        </View>
     )
 }
