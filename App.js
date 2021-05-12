@@ -1,61 +1,24 @@
-import React, {useState, useEffect} from 'react';
-import {ScrollView, View, Text, SafeAreaView, FlatList, ActivityIndicator} from "react-native";
-import {styles} from "./assets/Styles";
-import {Tile} from "react-native-elements";
-import HeaderApp from "./components/header";
-import CardList from "./components/cardList";
-import Fire from './Fire';
+import React from 'react';
+import HomeScreen from './views/HomeScreen';
+import TodoScreen from "./views/TodoScreen";
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+const Stack = createStackNavigator();
 
 export default function App() {
-    const [lists, setLists] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        firebase = new Fire((error) => {
-            if(error) {
-                return alert("Une erreur est survenue");
-            }
-            firebase.getLists(lists => {
-                setLists(lists);
-                setLoading(false);
-            });
-            return function unsubscribe() {
-                firebase.detach();
-            };
-        });
-
-    }, []);
-    if(loading) {
-        return(
-            <View>
-                <ActivityIndicator></ActivityIndicator>
-            </View>
-        )
-    } else {
-        return (
-            <SafeAreaView style={{flex: 1}}>
-                {/* Header */}
-                <HeaderApp/>
-                    <FlatList
-                        ListHeaderComponent={
-                            <Tile
-                            imageSrc={require('./assets/background_list.jpeg')}
-                            title="Todo list"
-                            featured
-                            imageContainerStyle={{width: 300, height: 150, borderRadius: 20}}
-                            containerStyle={{alignItems: 'center', marginBottom: 10, height: 160}}
-                            />
-                        }
-                        data={lists}
-                        renderItem={(list ) => (
-                        <CardList item={list}/>
-                        )
-                    
-                }
-                    />
-            </SafeAreaView>
-    
-        )
-    }
+    return (
+        <NavigationContainer>
+            <Stack.Navigator>
+                <Stack.Screen
+                    name="Home"
+                    component={HomeScreen}
+                    options={{ title: 'MY TODOLIST APP' }}/>
+                <Stack.Screen
+                    name="Todo"
+                    component={TodoScreen}
+                    options={{ title: 'MY TODOLIST APP' }}/>
+            </Stack.Navigator>
+        </NavigationContainer>
+    )
 }
-   
