@@ -8,5 +8,4 @@ export default function CardList(list) {
             <Text style={cardStyles.item}>{list.item.item.name}</Text>
         </TouchableOpacity>
     )
-
 }
