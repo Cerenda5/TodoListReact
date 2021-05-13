@@ -79,6 +79,7 @@ export default function HomeScreen({navigation}) {
                                             <View style={styles.square}></View>
                                             <Text>{list.item.name}</Text>
                                         </View>
+                                        <View style={styles.arrow}></View>
                                     </View>
                                 </TouchableOpacity>
                             )}
