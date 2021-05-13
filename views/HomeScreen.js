@@ -1,20 +1,32 @@
 import React, {useState, useEffect} from 'react';
-import {ScrollView, View, Text, SafeAreaView, FlatList, ActivityIndicator, TouchableOpacity} from "react-native";
-import {cardStyles, styles} from "../assets/Styles";
-import {Tile} from "react-native-elements";
-
-import CardList from "../components/cardList";
-
+import {
+    View,
+    Text,
+    SafeAreaView,
+    ActivityIndicator,
+    TouchableOpacity,
+    Image,
+    ScrollView, CheckBox
+} from "react-native";
+import {styles, swipeStyles} from "../assets/Styles";
 import Fire from '../Fire';
 import TodoListForm from '../components/TodoListForm';
+import {SwipeListView} from "react-native-swipe-list-view";
 
 export default function HomeScreen({navigation}) {
     const [lists, setLists] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    function deleteList() {
+        firebase.deleteList({
+            id: id,
+            todos: [],
+        });
+    }
+
     useEffect(() => {
         firebase = new Fire((error) => {
-            if(error) {
+            if (error) {
                 return alert("Une erreur est survenue");
             }
             firebase.getLists(lists => {
@@ -28,28 +40,74 @@ export default function HomeScreen({navigation}) {
 
     }, []);
 
-    if(loading) {
-        return(
+    if (loading) {
+        return (
             <View>
                 <ActivityIndicator></ActivityIndicator>
             </View>
         )
     } else {
         return (
-            <SafeAreaView style={{flex: 1}}>
-                 <TodoListForm></TodoListForm>
-                <FlatList
-                    data={lists}
-                    renderItem={(list ) => (
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('TodoScreen', list)}>
-                            <Text style={cardStyles.item}>{list.item.name}</Text>
-                        </TouchableOpacity>
-                    )
-                    }
-                />
-            </SafeAreaView>
+            <SafeAreaView style={styles.container}>
+                <ScrollView
+                    contentContainerStyle={{
+                        flexGrow: 1
+                    }}
+                    keyboardShouldPersistTaps='handled'
+                >
+                    {/* Logo */}
+                    <View style={styles.imageContainer}>
+                        <Image
+                            style={styles.logo}
+                            source={require('../assets/logo-removebg.png')}
+                        />
+                    </View>
 
+                    {/* Titre de la page */}
+                    <View style={styles.tasksWrapper}>
+                        <Text style={styles.sectionTitle}>Listes de tâches (mettre le nombre)</Text>
+
+                        {/* Ici nos listes de tâches */}
+                        <SwipeListView
+                            data={lists}
+                            renderItem={(list) => (
+                                <TouchableOpacity
+                                    activeOpacity={1}
+                                    onPress={() => navigation.navigate('TodoScreen', list)}>
+                                    <View style={styles.item}>
+                                        <View style={styles.itemLeft}>
+                                            <View style={styles.square}></View>
+                                            <Text>{list.item.name}</Text>
+                                        </View>
+                                    </View>
+                                </TouchableOpacity>
+                            )}
+                            renderHiddenItem={() => (
+                                <View style={swipeStyles.rowBack}>
+                                    <TouchableOpacity
+                                        activeOpacity={1}
+                                        onPress={() => {
+                                            alert('Mettre en place l update')
+                                        }}>
+                                        <Text style={swipeStyles.backRightBtn}>Modifier</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
+                                        activeOpacity={1}
+                                        onPress={deleteList}>
+                                        <Text style={swipeStyles.backRightBtnRight}>Supprimer</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            )}
+                            leftOpenValue={75}
+                            rightOpenValue={-75}
+                        />
+
+                    </View>
+                </ScrollView>
+                <TodoListForm/>
+
+            </SafeAreaView>
         )
     }
 }
+

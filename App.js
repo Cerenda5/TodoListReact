@@ -19,7 +19,10 @@ export default function App() {
                     name="HomeScreen"
                     component={HomeScreen}
                     options={{headerShown: false}}/>
-                <Stack.Screen name="TodoScreen" component={TodoScreen} />
+                <Stack.Screen
+                    name="TodoScreen"
+                    component={TodoScreen}
+                    options={{headerShown: false}}/>
             </Stack.Navigator>
         </NavigationContainer>
     )
