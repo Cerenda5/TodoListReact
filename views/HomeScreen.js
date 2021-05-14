@@ -65,7 +65,7 @@ export default function HomeScreen({navigation}) {
 
                     {/* Titre de la page */}
                     <View style={styles.tasksWrapper}>
-                        <Text style={styles.sectionTitle}>Listes de tâches (mettre le nombre)</Text>
+                        <Text style={styles.sectionTitle}>Listes de tâches</Text>
 
                         {/* Ici nos listes de tâches */}
                         <SwipeListView
@@ -94,7 +94,9 @@ export default function HomeScreen({navigation}) {
                                     </TouchableOpacity>
                                     <TouchableOpacity
                                         activeOpacity={1}
-                                        onPress={deleteList}>
+                                        onPress={() => {
+                                            alert('Mettre en place le delete')
+                                        }}>
                                         <Text style={swipeStyles.backRightBtnRight}>Supprimer</Text>
                                     </TouchableOpacity>
                                 </View>
